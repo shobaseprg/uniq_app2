@@ -27,8 +27,6 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
-    #ports:
-    #  - 27099:27017
     volumes:
       - ./data/db:/data/db
     command:
