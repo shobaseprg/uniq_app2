@@ -8,7 +8,6 @@ personsコレクションに対して、ユーザを1件追加して、
 */
 
 console.log("---- test connect mongodb server ---")
-
 var url = 'mongodb://test:pass@mongo:27017/'
 var db_name = 'example'
 var collection_name = 'persons'

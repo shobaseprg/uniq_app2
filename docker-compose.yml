@@ -1,26 +1,32 @@
 version: '3'
 services:
   app:
-    image: node:12
-    container_name: container1
+    build: .
+    container_name: uniq_app_cnt
     #network_mode: "host"
     ports:
       - 8080:8080
     restart: always
     working_dir: /app
-    stdin_open: true
+    tty: true
     volumes:
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
       - ./src:/app
+    command: bash
+    #command: node index.js
     networks:
-      - app-network
+      - uniq-network
     depends_on:
       - mongo
-
   mongo:
     image: mongo:4.2.5-bionic
-    container_name: container2
+    container_name: uniq_db_cnt
     restart: always
-
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     #ports:
     #  - 27099:27017
     volumes:
@@ -28,7 +34,7 @@ services:
     command:
       - mongod
     networks:
-      - app-network
+      - uniq-network
 networks:
-  app-network:
+  uniq-network:
     external: true
