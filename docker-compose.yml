@@ -22,6 +22,8 @@ services:
   mongo:
     image: mongo:4.2.5-bionic
     container_name: uniq_db_cnt
+    ports:
+      - "27018:27017"
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
@@ -29,7 +31,6 @@ services:
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     volumes:
       - ./data/db:/data/db
-      - ./data/mongodb.
     command:
       - mongod
     networks:
