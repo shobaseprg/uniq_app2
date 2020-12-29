@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    build: .
+    build: ./docker_app
     container_name: uniq_app_cnt
     #network_mode: "host"
     ports:
