@@ -1,7 +1,7 @@
 const mongodb = require('mongodb')
 const MongoClient = mongodb.MongoClient
 
-let url = 'mongodb://root:teama@mongo:27017/'
+let url = 'mongodb://owner:teama@mongo:27017/'
 let db_name = 'testdb'
 let collection_name = 'testUser'
 

@@ -18,6 +18,16 @@ var users = [
         db: "testdb"
       }
     ]
+  },
+  {
+    user: "readWriteUser",
+    pwd: "teama",
+    roles: [
+      {
+        role: "readWrite",
+        db: "testdb"
+      }
+    ]
   }
 ];
 
