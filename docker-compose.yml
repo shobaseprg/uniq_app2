@@ -3,7 +3,6 @@ services:
   app:
     build: ./docker_app
     container_name: uniq_app_cnt
-    #network_mode: "host"
     ports:
       - "8080:3000"
     restart: always
@@ -15,8 +14,7 @@ services:
       - ./src:/app
     env_file:
       - ./secret_file/db.env
-    command: bash
-    #command: node index.js
+    command: npm start
     networks:
       - uniq-network
     depends_on:
