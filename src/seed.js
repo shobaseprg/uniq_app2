@@ -13,83 +13,71 @@ mongoose.Promise = global.Promise;
 //===================================
 //driver
 //===================================
-const drivers = [ //シードデーター
-  {
-    name: "driverTaro",
-  },
-  {
-    name: "driverKen",
+// 親
+const parents =
+  [
+    {
+      name: "driverTaro",
+    },
+    {
+      name: "driverKen",
+    },
+    {
+      name: "driverJiro",
+    }
+  ];
 
-  },
-  {
-    name: "driverJiro",
+// 子
+const children =
+  [
+    [//シードデーター
+      {
+        latitude_i_y: 1,
+        longitude_k_x: 1
+      },
+      {
+        latitude_i_y: 2,
+        longitude_k_x: 2
 
+      }
+    ],
+    [
+      {
+        latitude_i_y: 3,
+        longitude_k_x: 3
+      },
+      {
+        latitude_i_y: 4,
+        longitude_k_x: 4
+      }
+    ],
+    [
+      {
+        latitude_i_y: 5,
+        longitude_k_x: 5
+      },
+      {
+        latitude_i_y: 6,
+        longitude_k_x: 6
+      }
+    ]
+  ];
+//===================================
+//データクリア
+//===================================
+seedDriver.deleteMany().exec()
+
+position.deleteMany().exec()
+
+//===================================
+//ループ
+//===================================
+for (let i = 0; i < parents.length; i++) {
+  parent = new seedDriver(parents[i]);
+  for (let g = 0; g < children[i].length; g++) {
+    let child = new position(children[i][g]);
+    parent.position.push(child._id);
+    child.save();
   }
-];
-
-seedDriver.deleteMany() //既存のデータをクリア
-  .exec()
-  .then(() => {
-    console.log("Empty"); //確認用ログ
-  });
-
-let commands = []; //シーダー配列用
-
-drivers.forEach((c) => { //commands配列にシーダーをループで全て追加
-  commands.push(seedDriver.create({
-    name: c.name,
-    position: c.position
-  }));
-});
-
-Promise.all(commands) //全てのプロミス解決後の処理
-  .then(r => {
-    console.log(JSON.stringify(r));
-    seedDriver.find({}, (error, data) => { savedDriver = data });
-  })
-  .catch(error => {
-    console.log($error);
-  });
-
-//===================================
-//position
-//===================================
-
-const positions = [ //シードデーター
-  {
-    latitude_i_y: 35.720493999999995,
-    longitude_k_x: 139.9311911,
-  },
-  {
-    latitude_i_y: 36.720493999999995,
-    longitude_k_x: 140.9311911,
-
-  },
-  {
-    latitude_i_y: 40.720493999999995,
-    longitude_k_x: 141.9311911,
-  },
-];
-
-position.deleteMany() //既存のデータをクリア
-  .exec()
-  .then(() => {
-    console.log("Empty"); //確認用ログ
-  });
-
-let position_seeders = []; //シーダー配列用
-
-positions.forEach((c) => { //commands配列にシーダーをループで全て追加
-  position_seeders.push(position.create({
-    latitude_i_y: c.latitude_i_y,
-    longitude_k_x: c.longitude_k_x,
-  }));
-});
-
-Promise.all(positions) //全てのプロミス解決後の処理
-  .then(r => {
-    console.log(JSON.stringify(r));
-  })
-  .catch(error => {
-    console.log($error);
-  });
+  parent.save();
+}
