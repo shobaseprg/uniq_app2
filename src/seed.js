@@ -2,7 +2,6 @@ const mongoose = require("mongoose"); //モジュールロード
 const seedDriver = require("./models/m_driver.js");
 const position = require("./models/m_position.js");
 
-
 mongoose.connect(
   `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@mongo:27017/uniq_db`,
   { userNewParser: true }
@@ -20,9 +19,11 @@ const drivers = [ //シードデーター
   },
   {
     name: "driverKen",
+
   },
   {
     name: "driverJiro",
+
   }
 ];
 
@@ -37,12 +38,14 @@ let commands = []; //シーダー配列用
 drivers.forEach((c) => { //commands配列にシーダーをループで全て追加
   commands.push(seedDriver.create({
     name: c.name,
+    position: c.position
   }));
 });
 
 Promise.all(commands) //全てのプロミス解決後の処理
   .then(r => {
     console.log(JSON.stringify(r));
+    seedDriver.find({}, (error, data) => { savedDriver = data });
   })
   .catch(error => {
     console.log($error);
@@ -55,7 +58,16 @@ Promise.all(commands) //全てのプロミス解決後の処理
 const positions = [ //シードデーター
   {
     latitude_i_y: 35.720493999999995,
-    longitude_k_x: 139.9311911
+    longitude_k_x: 139.9311911,
+  },
+  {
+    latitude_i_y: 36.720493999999995,
+    longitude_k_x: 140.9311911,
+
+  },
+  {
+    latitude_i_y: 40.720493999999995,
+    longitude_k_x: 141.9311911,
   },
 ];
 
