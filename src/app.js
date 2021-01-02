@@ -6,8 +6,8 @@ const logger = require('morgan');
 const mongoose = require("mongoose");
 
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const indexRouter = require('./routes/r_index');
+const usersRouter = require('./routes/r_users');
 
 const initTestController = require('./controllers/initTestsController');
 
