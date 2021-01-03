@@ -4,15 +4,18 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require("mongoose");
+
+const app = express();
 //===================================
 //ルーティングロード
 //===================================
 const indexRouter = require('./routes/r_index');
 const usersRouter = require('./routes/r_users');
-
+//===================================
+//コントローラーロード
+//===================================
 const initTestController = require('./controllers/initTestsController');
-
-const app = express();
+const c_position = require('./controllers/c_position');
 //===================================
 //mongoose接続
 //===================================
@@ -40,7 +43,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //ルーティング
 //===================================
 app.get('/initTest', initTestController.test);/* 初期テストルーティング */
-app.get('/testPosition', initTestController.getPosition);/* 位置情報取得テスト */
+app.get('/getPosition', c_position.getPosition);
+app.get('/savePosition', c_position.savePosition);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 //===================================

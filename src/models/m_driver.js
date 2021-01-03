@@ -1,6 +1,8 @@
 "use strict";
 
 const mongoose = require("mongoose");
+const Position = require("./m_position.js");
+const Schema = mongoose.Schema;
 
 const emailValidator = {
   validator: function (v) {
@@ -10,7 +12,7 @@ const emailValidator = {
   message: '`{VALUE}` is invalid syntax of `{PATH}`'
 }
 
-const driverSchema = new mongoose.Schema({
+const driverSchema = Schema({
   name: {
     type: String,
     // required: true,  //必須
@@ -29,7 +31,7 @@ const driverSchema = new mongoose.Schema({
     max: 99
   },
   position: { //Fatherモデルに所属//単数形
-    type: mongoose.Schema.Types.ObjectId, //外部キー
+    type: Schema.Types.ObjectId, //外部キー
     ref: "Position" //参照モデル
   }
 });

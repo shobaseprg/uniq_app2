@@ -1,5 +1,4 @@
 const mongoose = require("mongoose"); //モジュールロード
-const m_driver = require("./models/m_driver.js");
 const seedDriver = require("./models/m_driver.js");
 const position = require("./models/m_position.js");
 
@@ -47,14 +46,13 @@ const children =
       {
         latitude_i_y: 5,
         longitude_k_x: 5
-      }
+      },
     ]
   ];
 //===================================
 //データクリア
 //===================================
 seedDriver.deleteMany().exec()
-
 position.deleteMany().exec()
 
 //===================================
@@ -64,7 +62,8 @@ for (let i = 0; i < parents.length; i++) {
   parent = new seedDriver(parents[i]);
   for (let g = 0; g < children[i].length; g++) {
     let child = new position(children[i][g]);
-    parent.position = child._id;
+    parent.position = child;
+    child.driver = parent;
     child.save();
   }
   parent.save();

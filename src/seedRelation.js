@@ -1,5 +1,4 @@
 const mongoose = require("mongoose"); //モジュールロード
-const m_driver = require("./models/m_driver.js");
 const seedDriver = require("./models/m_driver.js");
 const position = require("./models/m_position.js");
 
@@ -11,7 +10,7 @@ mongoose.set("useCreateIndex", true);
 
 mongoose.Promise = global.Promise;
 
-seedDriver.findOne({ name: "driverTaro" }).populate("position").exec((error, data) => {
+position.findOne({ latitude_i_y: 1 }).populate("driver").exec((error, data) => {
   console.log(data);
-}
-)
+  console.log(data.driver.name);
+})

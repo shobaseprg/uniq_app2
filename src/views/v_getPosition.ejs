@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CAR MATCH APP</title>
+</head>
+
+<body>
+  <div id="position-display">取得中</div>
+  <script>
+
+    const sendPosition = (latitude_i_y, longitude_k_x) => {
+      console.log("【ログ】【結果➡︎】"); console.log();
+      location.href = `/savePosition?latitude_i_y=${latitude_i_y}&longitude_k_x=${longitude_k_x}`
+    }
+
+    // GPS センサの値が変化したら何らか実行する geolocation.watchPosition メソッド
+    navigator.geolocation.watchPosition((position) => {
+      let latitude_i_y = position.coords.latitude;            // 緯度を取得
+      let longitude_k_x = position.coords.longitude;           // 経度を取得
+      let accuracy = position.coords.accuracy;
+      setTimeout(function () {
+        sendPosition(latitude_i_y, longitude_k_x);
+      }, 5000);
+    },
+      (error) => {                                     // エラー処理（今回は特に何もしない）
+      }, {
+      enableHighAccuracy: true                        // 高精度で測定するオプション
+    });
+  </script>
+</body>
+
+</html>

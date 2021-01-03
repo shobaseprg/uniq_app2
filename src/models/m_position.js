@@ -1,12 +1,14 @@
 "use strict";
 
 const mongoose = require("mongoose");
+const Driver = require("./m_driver.js");
+const Schema = mongoose.Schema;
 
-const positionSchema = new mongoose.Schema({
+const positionSchema = Schema({
   longitude_k_x: Number,
   latitude_i_y: Number,
   driver: { //Fatherモデルに所属//単数形
-    type: mongoose.Schema.Types.ObjectId, //外部キー
+    type: Schema.Types.ObjectId, //外部キー
     ref: "Driver" //参照モデル
   }
 });
