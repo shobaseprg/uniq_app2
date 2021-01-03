@@ -1,7 +1,6 @@
 "use strict";
 
 const mongoose = require("mongoose");
-const Driver = require("./m_driver.js");
 const Schema = mongoose.Schema;
 
 const positionSchema = Schema({

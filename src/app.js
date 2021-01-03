@@ -11,6 +11,7 @@ const app = express();
 //===================================
 const indexRouter = require('./routes/r_index');
 const usersRouter = require('./routes/r_users');
+const adminRouter = require('./routes/r_admin');
 //===================================
 //コントローラーロード
 //===================================
@@ -43,8 +44,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 //ルーティング
 //===================================
 app.get('/initTest', initTestController.test);/* 初期テストルーティング */
-app.get('/getPosition', c_position.getPosition);
-app.get('/savePosition', c_position.savePosition);
+app.get('/getPosition', c_position.getPosition);/* ポジション取得 */
+app.get('/savePosition', c_position.savePosition);/* ポジション保存 */
+app.use('/admin', adminRouter);/* 管理者用ルーティング */
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 //===================================
