@@ -13,7 +13,7 @@ services:
       - /etc/group:/etc/group:ro
       - ./src:/app
     env_file:
-      - ./secret_file/db.env
+      - ./secret_file/secret.env
     command: npm start
     networks:
       - uniq-network
@@ -33,7 +33,7 @@ services:
       - ./data/db:/data/db
       - ./secret_file/db_init/:/docker-entrypoint-initdb.d
     env_file:
-      - ./secret_file/db.env
+      - ./secret_file/secret.env
     command:
       - mongod
     networks:
