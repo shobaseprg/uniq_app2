@@ -16,8 +16,8 @@
 <script>
   let arrays = [];
   fetch('http://localhost:8080/admin/getCarPositions').then(response => response.json())
-    .then(data => arrays = data);
-  console.log(arrays);
+    .then(data => console.log(data))git;
+
   const mapDiv = document.getElementById("mapDiv");     // 地図を置く場所
   let gmap;                                           // Googleマップの Map オブジェクトのための変数
   let mark;                                           // Googleマップの Marker オブジェクトのための変数

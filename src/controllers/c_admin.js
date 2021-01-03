@@ -8,16 +8,9 @@ const displayMap = (req, res, next) => {
 }
 
 const returnCarPositions = (req, res, next) => {
-  const ppap = [
-    { object: 'pen', order: 1 },
-    { object: 'pineapple', order: 2 },
-    { object: 'apple', order: 3 },
-    { object: 'pen', order: 4 }
-  ];
-  res.json(ppap);
-  // return new promise((resolve) => {
-  //   resolve();
-  // })
+  Driver.find().populate('position').exec((error, data) => {
+    res.json(data);
+  })
 }
 
 const savePosition = (req, res, next) => {
