@@ -38,14 +38,14 @@ const children =
     ],
     [
       {
-        latitude_i_y: 3,
-        longitude_k_x: 3
+        latitude_i_y: 139.9312415,
+        longitude_k_x: 35.7204839,
       },
     ],
     [
       {
-        latitude_i_y: 5,
-        longitude_k_x: 5
+        latitude_i_y: 139.9312416,
+        longitude_k_x: 35.7204838,
       },
     ]
   ];

@@ -1,44 +1,35 @@
-<title>Google マップに位置を表示</title>
-<style>
-  /* Google マップを表示させるためには style 内で width と height の指定が必要 */
-  #mapDiv {
-    width: 100%;
-    height: 400px;
-  }
-</style>
+<head>
+  <title>CAR MATCH APP</title>
+  <style>
+    /* Google マップを表示させるためには style 内で width と height の指定が必要 */
+    #mapDiv {
+      width: 100%;
+      height: 1000px;
+    }
+  </style>
 </head>
 
 <body>
-  <div id="txt">ここにデータを表示</div> <!-- データを表示するdiv要素 -->
   <div id="mapDiv"></div> <!-- 地図を置くdiv要素 -->
 
   <script>
-    var mapDiv = document.getElementById("mapDiv");     // 地図を置く場所
-    var gmap;                                           // Googleマップの Map オブジェクトのための変数
-    var mark;                                           // Googleマップの Marker オブジェクトのための変数
+    const mapDiv = document.getElementById("mapDiv");     // 地図を置く場所
+    let gmap;                                           // Googleマップの Map オブジェクトのための変数
+    let mark;                                           // Googleマップの Marker オブジェクトのための変数
 
-    // GPS センサの値が変化したら何らか実行する geolocation.watchPosition メソッド
+    loadMermaids();                                     // ★人魚の情報を読み込む
+
     navigator.geolocation.watchPosition((position) => {
-      var lat = position.coords.latitude;            // 緯度を取得
-      var lng = position.coords.longitude;           // 経度を取得
+      let latitude_i_y = position.coords.latitude;            // 緯度を取得
+      var longitude_k_xng = position.coords.longitude;           // 経度を取得
       var accu = position.coords.accuracy;            // 緯度・経度の精度を取得
-      displayData(lat, lng, accu);                    // displayData 関数を実行
-      showMyPos(lat, lng);                            // showMyPos 関数を実行
-    }, (error) => {                                     // エラー処理（今回は特に何もしない）
-    }, {
-      enableHighAccuracy: true                        // 高精度で測定するオプション
+      showMyPos(latitude_i_y, longitude_k_x);                            // showMyPos 関数を実行
+      calcDistance(latitude_i_y, longitude_k_x);
     });
 
-    // データを表示する displayData 関数
-    function displayData(lat, lng, accu) {
-      var txt = document.getElementById("txt");       // データを表示するdiv要素の取得
-      txt.innerHTML = "緯度, 経度: " + lat + ", " + lng + "<br>"  // データ表示
-        + "精度: " + accu;
-    }
-
     // 自分の位置を表示する showMyPos 関数
-    function showMyPos(lat, lng) {
-      var myPos = new google.maps.LatLng(lat, lng);   // Googleマップの LatLng オブジェクトを作成
+    function showMyPos(latitude_i_y, longitude_k_x) {
+      var myPos = new google.maps.LatLng(latitude_i_y, longitude_k_x);   // Googleマップの LatLng オブジェクトを作成
       gmap.setCenter(myPos);                          // gmap の中心を myPos の位置にする
       mark.setPosition(myPos);                        // mark の位置を myPos にする
     }
@@ -47,33 +38,43 @@
     function initMap() {
       // 1回だけ現在位置を測定する getCurrentPosition メソッド
       navigator.geolocation.getCurrentPosition((position) => {
-        var lat = position.coords.latitude;         // 緯度を取得
-        var lng = position.coords.longitude;        // 経度を取得
-        var initPos = new google.maps.LatLng(lat, lng); // 初期位置を指定
+        var latitude_i_y = position.coords.latitude;         // 緯度を取得
+        var longitude_k_x = position.coords.longitude;        // 経度を取得
+        var initPos = new google.maps.LatLng(latitude_i_y, longitude_k_x); // 初期位置を指定
         gmap = new google.maps.Map(mapDiv, {        // Map オブジェクトを作成して mapDiv に表示
           center: initPos,                        // 地図の中心を initPos に設定
-          zoom: 16                                // ズーム倍率
+          zoom: 13                                // ズーム倍率
         });
         mark = new google.maps.Marker({             // Marker オブジェクトを作成
           map: gmap,                              // gmap の上に表示する
           position: initPos,                      // initPos の位置に
         });
+        placeMermaids();                            // ★人魚を配置する
       }, (error) => {                                 // エラー処理（今回は特に何もしない）
       }, {
         enableHighAccuracy: true                    // 高精度で測定するオプション
       });
     }
+
+    // ★人魚を地図上に配置する placeMermaids 関数
+    function placeMermaids() {
+      var mermaidMark = [];                           // 人魚マーカーの配列
+      for (var i = 0; i < mermaids.length; i++) {      // 全ての人魚について
+        var pos = new google.maps.LatLng(mermaids[i].latitude_i_y, mermaids[i].longitude_k_x); // 人魚の位置を設定
+        mermaidMark[i] = new google.maps.Marker({   // 人魚のマーカーを作成
+          map: gmap,                              // gmap の上に表示する
+          position: pos,                          // pos の位置に
+          title: mermaids[i].name                 // タイトルを設定
+        });
+        // captured[i] = false;                        // 捕獲済み状態を全てfalseにする
+      }
+    }
+
   </script>
-  <% console.log(googleMapUrl) %>
+  <!-- Google マップを読み込むための外部スクリプトの読み込み -->
+  <!-- API_KEY の部分を自身で取得した APIキーで置き換える -->
+  <!-- callback=initMap により、マップの準備ができたら initMap 関数が実行される -->
 
-    <!-- Google マップを読み込むための外部スクリプトの読み込み -->
-    <!-- API_KEY の部分を自身で取得した APIキーで置き換える -->
-    <!-- callback=initMap により、マップの準備ができたら initMap 関数が実行される -->
-    <script>
-    </script>
-
-
-    <script id="googleMapUrl"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDl7XzTVOilq7dDEMXjWjJLXgjz6VCTymc&callback=initMap">
-      </script>
-    動作確認
+  <script id="googleMapUrl"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDl7XzTVOilq7dDEMXjWjJLXgjz6VCTymc&callback=initMap"></script>
+  動作確認

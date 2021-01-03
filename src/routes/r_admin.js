@@ -1,11 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const c_admin = require("../controllers/c_admin");
 
 /* GET users listing. */
-router.get('/displayMap', function (req, res, next) {
-  res.render('admin/v_admin_displayMap', { googleMapUrl: process.env.GOOGLE_MAP_API_KEY });
-  console.log("【ログ】process.env.GOOGLE_MAP_API_KEY【結果➡︎】"); console.log(process.env.GOOGLE_MAP_API_KEY);
-
-});
+router.get('/displayMap', c_admin.displayMap);
 
 module.exports = router;
