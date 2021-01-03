@@ -28,10 +28,10 @@ const driverSchema = new mongoose.Schema({
     min: 0,
     max: 99
   },
-  position: [{ //Fatherモデルに所属//単数形
+  position: { //Fatherモデルに所属//単数形
     type: mongoose.Schema.Types.ObjectId, //外部キー
     ref: "Position" //参照モデル
-  }]
+  }
 });
 
 module.exports = mongoose.model("Driver", driverSchema);
