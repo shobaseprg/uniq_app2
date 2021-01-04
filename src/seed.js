@@ -24,6 +24,9 @@ const parents =
     },
     {
       name: "driverJiro",
+    },
+    {
+      name: "driverKou",
     }
   ];
 
@@ -31,21 +34,27 @@ const parents =
 const children =
   [
     [//シードデーター
-      {
+      { //自分の位置
         latitude_i_y: 1,
         longitude_k_x: 1
       },
     ],
     [
-      {
-        latitude_i_y: 139.9312415,
-        longitude_k_x: 35.7204839,
+      {//都庁
+        latitude_i_y: 35.6895014,
+        longitude_k_x: 139.6917337,
       },
     ],
     [
-      {
-        latitude_i_y: 139.9312416,
-        longitude_k_x: 35.7204838,
+      {//ドーム
+        latitude_i_y: 35.705471,
+        longitude_k_x: 139.751801,
+      },
+    ],
+    [
+      {//皇居
+        latitude_i_y: 35.6802117,
+        longitude_k_x: 139.7576692,
       },
     ]
   ];
